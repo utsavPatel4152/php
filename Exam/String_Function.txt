@@ -1,0 +1,4 @@
+string replace :
+String replace in-built function replaces first string with another string.
+In result of it, replaced string is got in place of old string.
+also takes index of old string.

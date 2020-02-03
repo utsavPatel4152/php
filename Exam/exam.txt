@@ -1,0 +1,4 @@
+array difference :
+Compares arrays and take difference of the values of given arrays respectively.
+It compares values in sequence.
+Ex. 1st element compared with 1st of other array and so on and give result array of both.
