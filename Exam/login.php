@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,21 +22,25 @@
 
     <body>
         <div class="main outer" align="center">
-            <form method="POST">
+            <form action="blogPost.php" method="POST">
                 
                 <h2>LOGIN</h2>
                 <div>
                     <label>Email</label>
-                        <input type="email" name="email" <?php $email = getValuesInSession('email'); ?>><br>
+                        <input type="email" name="login[email]"><br>
                     
                     <label>Password</label>
-                        <input type="password" name="password" <?php $password = getValuesInSession('password')?>><br>
+                        <input type="password" name="login[password]"><br>
                 </div><br>
                 
                 <input type="submit" value="LOGIN" name="login">
-                <input type="button" value="REGISTER" name="register" onclick="document.location.href='register.php'">
                 
+            </form><br>
+
+            <form action="register.php" method="POST">
+                <input type="submit" value="REGISTER" name="register">
             </form>
+
         </div><br>
     </body>
 </html>

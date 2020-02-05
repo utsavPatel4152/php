@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +9,8 @@
         <title>Registration Form</title>
     </head>
 
-    <?php require_once 'setData.php'; ?>
+    <?php require_once 'setData.php';
+          require_once 'validate.php'; ?>
 
     <style>
         label{
@@ -25,38 +28,38 @@
                 <div>
                     <?php $prefix = ['Mr', 'Miss', 'Ms', 'Mrs', 'Dr']; ?>
                     <label for="prefix">Prefix</label>
-                    <select name="prefix">
+                    <select name="register[prefix]">
                             <?php foreach ($prefix as $prefixValue) : ?>
                                 <option value="<?php echo $prefixValue;?>"><?php echo $prefixValue;?></option>
                             <?php endforeach ?>
                     </select><br>
 
                     <label>First Name</label>
-                        <input type="text" name="firstName"><br>
+                        <input type="text" name="register[firstName]"><br>
                     
                     <label>Last Name</label>
-                        <input type="text" name="lastName"><br>
+                        <input type="text" name="register[lastName]"><br>
                     
                     <label>Email</label>
-                        <input type="email" name="email"><br>
+                        <input type="email" name="register[email]"><br>
                         
                     <label>Mobile Number</label>
-                        <input type="number" name="mobileNo"><br>
+                        <input type="number" name="register[mobileNo]"><br>
                     
                     <label>Password</label>
-                        <input type="password" name="password"><br>
+                        <input type="password" name="register[password]"><br>
                     
                     <label>Confirm Password</label>
                         <input type="password" name="confirmPassword"><br>
                         
                     <label>Information</label>
-                        <input type="text" name="information"></textarea><br>
+                        <input type="text" name="register[information]"></textarea><br>
                 </div><br>
 
-                <input type="checkbox">Hereby, I Accept Terms & Conditions<br><br>
-                <input type="button" name="Submit" value="Submit" onclick="document.location.href='blogPost.php'">
-                
+                <input type="checkbox" name="terms">Hereby, I Accept Terms & Conditions<br><br>
+                <input type="submit" name="registerSubmit" value="Submit">
             </form>
+
         </div>
     </body>
 </html>

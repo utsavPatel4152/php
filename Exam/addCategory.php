@@ -24,16 +24,26 @@
                 <h2>Add New Category</h2>
                 <div>
                     <label>Title</label>
-                        <input type="text" name="title"><br>
+                        <input type="text" name="category[title]"><br>
                     
                     <label>Content</label>
-                        <input type="text" name="content"><br>
+                        <input type="text" name="category[content]"><br>
 
                     <label>URL</label>
-                        <input type="text" name="URL"><br>
+                        <input type="text" name="category[URL]"><br>
 
                     <label>Meta Title</label>
-                        <input type="date" name="metaTitle"><br>
+                        <input type="text" name="category[metaTitle]"><br>
+                        
+                    <label>Parent Category</label>
+                    <?php $result = getParentCategory()?>
+                        <select name="category[id_parent_category]">
+                        <?php while ($row = mysqli_fetch_assoc($result)):?>
+                            <option value="<?php echo $row['id_parent_category']?>">
+                            <?php echo $row['parent_category_name'];?>
+                            </option>
+                        <?php endwhile;?>
+                    </select><br>
 
                     <label>Image</label>
                         <input type="file" name="image"><br>

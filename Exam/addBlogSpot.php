@@ -7,6 +7,8 @@
         <title>Add New Blog Spot</title>
     </head>
 
+    <?php require_once 'setData.php'; ?>
+
     <style>
         label{
             display: inline-block;
@@ -22,21 +24,28 @@
                 <h2>Add New Blog Spot</h2>
                 <div>
                     <label>Title</label>
-                        <input type="text" name="title"><br>
+                        <input type="text" name="blog[title]"><br>
                     
                     <label>Content</label>
-                        <input type="text" name="content"><br>
+                        <input type="text" name="blog[content]"><br>
 
                     <label>URL</label>
-                        <input type="text" name="URL"><br>
-
-                    <label>Published At</label>
-                        <input type="date" name="PublishedAt"><br>
+                        <input type="text" name="blog[URL]"><br>
 
                     <label>Image</label>
-                        <input type="file" name="image"><br>
+                        <input type="file" name="blog[image]"><br>
                 </div><br>
-                
+                    
+                <lable>Category</lable>
+                <?php $result = getParentCategory()?>
+                <select name="category" multiple>
+                    <?php while ($row = mysqli_fetch_assoc($result)):?>
+                        <option value="<?php echo $row['parent_category_name']?>">
+                            <?php echo $row['parent_category_name'];?>
+                        </option>
+                    <?php endwhile;?>
+                </select><br><br>
+
                 <input type="submit" value="SUBMIT" name="SubmitBlog">
                 
             </form>

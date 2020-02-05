@@ -1,6 +1,6 @@
 <?php
 
-    session_start();
+    // session_start();
 
     function getValuesInSession($fieldName, $returnType = '') {
         return isset($_SESSION[$fieldName])
@@ -15,6 +15,6 @@
     }
 
     setValuesInSession('email');
-    setValuesInSession('password')
+    setValuesInSession('password');
     
 ?>

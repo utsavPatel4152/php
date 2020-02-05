@@ -1,13 +1,10 @@
 <?php
 
-    if (isset($_POST['Submit'])) {
-        addToDatabase($_POST);
-    }
     if (isset($_POST['SubmitCategory'])) {
-        addToDatabase($_POST);
+        insertRow('category', $_POST['category']);
     }
     if (isset($_POST['SubmitBlog'])) {
-        addToDatabase($_POST);
+        insertRow('blog_spot', $_POST['blog']);
     }
 
     function connect() {
@@ -27,6 +24,9 @@
 
     function insertRow($tableName, $section) {
 
+        // echo '<pre>';
+        // print_r($section);
+        // echo '</pre>';
         $conn = connect();
         $fieldValue = implode(',', array_keys($section));
         $KeyValue = '"'.implode('","', $section).'"';
@@ -41,25 +41,56 @@
         }
     }
 
-    function addToDatabase ($postArray) {
-        insertRow('user', $postArray);
-        insertRow('category', $postArray);
-        insertRow('blog_spot', $postArray);
-    }
-    
-    function getDataFromDatabase ($fieldName) {
+    // function getDataFromDatabase ($fieldName) {
 
+    //     $conn = connect();
+    //     $tableName = 'user';
+
+    //     $sql = "SELECT $fieldName FROM $tableName ORDER BY id DESC LIMIT 1";
+    //     if ($data = mysqli_query($conn, $sql)) {
+    //         while ($row = mysqli_fetch_assoc($data)) {
+    //             return $row[$fieldName];
+    //         }
+    //     }
+    // }
+    
+    function getParentCategory() {
         $conn = connect();
-        $tableName = 'user';
-
-        $sql = "SELECT $fieldName FROM $tableName ORDER BY id DESC LIMIT 1";
-        if ($data = mysqli_query($conn, $sql)) {
-            while ($row = mysqli_fetch_assoc($data)) {
-                return $row[$fieldName];
-            }
-        }
+        $query = "SELECT * FROM parent_category";
+        $result = mysqli_query($conn, $query); 
+        return $result;
     }
     
+    function fetchBlog() {
+        $conn = connect();
+        $query = "SELECT id_blogSpot,title FROM blog_spot";
+        $result = mysqli_query($conn, $query); 
+        $fetchedData = [];
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+            array_push($fetchedData, $row);
+            }
+        } else {
+            echo mysqli_error($conn);
+        }
+        return $fetchedData;
+    }
+    
+    function fetchCategory() {
+        $conn = connect();
+        $query = "SELECT id_category,title FROM category";
+        $result = mysqli_query($conn, $query); 
+        $fetchedData = [];
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+            array_push($fetchedData, $row);
+            }
+        } else {
+            echo mysqli_error($conn);
+        }
+        return $fetchedData;
+    }
+
     function updateData($section, $id){
         $conn = connect();
 
@@ -73,14 +104,13 @@
         }
     }
     
-    function deleteData ($id) {
+    function deleteData($tableName, $deleteID, $fieldName) {
         $conn = connect();
-        $deleteSQL = "DELETE FROM customers WHERE id = '$id'";
-        if (mysqli_query($conn, $deleteSQL)) { 
-            echo 'Record Deleted Successfully!<br><br>';
+        $query = "DELETE FROM $tableName WHERE $fieldName ='$deleteID' ";
+        if (mysqli_query($conn, $query)) {
         }
         else {
-            echo 'Error deleting Record: ' . mysqli_error($conn);
+            echo mysqli_error($conn);
         }
     }
 
