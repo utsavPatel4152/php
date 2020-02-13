@@ -25,9 +25,9 @@
     // $router->add('{admin}/{action}/{controller}');
 
     $url = $_SERVER['QUERY_STRING'];
-    // $router->dispatch($url);
+    $router->dispatch($url);
     
-    
+    /*
     echo '<pre>';
     echo htmlspecialchars(print_r($router->getRoutes(), true));
 
@@ -38,7 +38,7 @@
     else {
         echo 'No route found for URL: ' . $url;
     }
-    
+    */
     
 ?>
 

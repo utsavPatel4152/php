@@ -6,14 +6,16 @@ use \Core\View;
 
     class Home extends \Core\Controller {
 
+        /*
         protected function before() {
-            // echo '(before)<br>';
-            // return false;
+            echo '(before)<br>';
+            return false;
         }
 
         protected function after() {
-            // echo '<br>(after)';
+            echo '<br>(after)';
         }
+        */
 
         public function indexAction() {
             // echo 'Hello from index action from Home controller.';

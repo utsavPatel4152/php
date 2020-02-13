@@ -11,7 +11,6 @@ namespace Core;
     
         public function __call($name, $args) {
             $method = $name . 'Action';
-
             if (method_exists($this, $method)) {
                 if ($this->before() !== false) {
                     call_user_func_array([$this, $method], $args);
@@ -23,11 +22,11 @@ namespace Core;
             }
         }
 
-        // protected function before() {    
-        // }
+        protected function before() {    
+        }
 
-        // protected function after() {    
-        // }
+        protected function after() {    
+        }
     }
 
 ?>

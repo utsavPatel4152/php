@@ -13,8 +13,8 @@
         <?php foreach ($colours as $colour): ?>
             <li><?php echo htmlspecialchars($colour); ?></li>
         <?php endforeach; ?>
-    </ul>
-         -->
+    </ul> -->
+        
     <!-- <form method="POST">
         <div>
             <label for="name">Your Name</label>
