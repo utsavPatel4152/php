@@ -1,0 +1,69 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block body %}
+{% if product.0 == 'update' %}
+    {% set btn = 'Update Product' %}
+    {% set action = 'updateProduct' %}
+{% else %}
+    {% set btn = 'Add Product' %}
+    {% set action = 'addProductToDB' %}
+{% endif %}
+
+<div class="product" name="main">
+        <div name="product[]">
+            <h2>Add Product</h2>
+            <form action="{{ action }}?id={{ product.productId }}" method="POST">
+                <div>
+                    <label for="productName">Product Name : </label>
+                    <input type="text" name="product[productName]"
+                            id="productName" value="{{ product.productName }}" required>
+                </div>
+                <div>
+                    <label for="SKU">SKU: </label>
+                    <input type="number" name="product[SKU]"
+                            id="SKU" value="{{ product.SKU }}" required>
+                </div>
+                <div>
+                    <label for="urlKey">Url Key : </label>
+                    <input type="text" name="product[urlKey]"
+                            id="urlKey" value="{{ product.urlKey }}" required>
+                </div>
+                <div>
+                    <label for="image">Image : </label>
+                    <input type="file" accept="image/*" name="product[image]"
+                            id="image" >
+                </div>
+                <div>
+                    <label for="status">status : </label>
+                    <input type="text" name="product[status]"
+                            id="status" value="{{ product.status }}" required>
+                </div>
+                <div>
+                    <label for="description">Description : </label>
+                    <input type="text" name="product[description]"
+                            id="description" value="{{ product.description }}" required>
+                </div>
+                <div>
+                    <label for="shortDescription">Short Description : </label>
+                    <input type="text" name="product[shortDescription]"
+                            id="shortDescription" value="{{ product.shortDescription }}" required>
+                </div>
+                <div>
+                    <label for="price">Price : </label>
+                    <input type="number" name="product[price]"
+                            id="price" value="{{ product.price }}" required>
+                </div>
+                <div>
+                    <label for="stock">Stock : </label>
+                    <input type="number" name="product[stock]"
+                            id="stock" value="{{ product.stock }}" required>
+                </div>
+                <div>
+                    <input type="submit" value="{{btn}}" name="addProduct" id="addProduct">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+
+    <a href="../categories/addCategory">
+    <input type="button" value="Add Category" name="addCategory"></a>
+
+    <table border="1">
+        
+        <tr>
+            <th>Id</th>
+            <th>CategoryName</th>
+            <th>Description</th>
+            <th>Parent Category</th>
+            <th>Action</th>
+        </tr>
+
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.categoryId }}</td>
+                <td>{{ category.categoryName }}</td>
+                <td>{{ category.description }}</td>
+                <td>{{ category.parentCategory }}</td>
+                <td>
+                    <a href="editCategory?id={{category.categoryId}}">Edit</a>
+                    <a href="deleteCategory?id={{category.categoryId}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+
+{% endblock %}

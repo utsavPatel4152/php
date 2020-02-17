@@ -1,0 +1,35 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+
+    <a href="../products/addProduct">
+    <input type="button" value="Add Product" name="addProduct"></a>
+
+    <table border="1">
+        
+        <tr>
+            <th>Id</th>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+
+        {% for product in products %}
+            <tr>
+                <td>{{ product.productId }}</td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>
+                    <a href="editProduct?id={{product.productId}}">Edit</a>
+                    <a href="deleteProduct?id={{product.productId}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+
+{% endblock %}

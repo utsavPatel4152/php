@@ -1,0 +1,44 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Add CMS{% endblock %}
+
+{% block body %}
+{% if cms.0 == 'update' %}
+    {% set btn = 'Update CMS' %}
+    {% set action = 'updateCMS' %}
+{% else %}
+    {% set btn = 'Add CMS' %}
+    {% set action = 'addCMSToDB' %}
+{% endif %}
+
+<div class="cms" name="main">
+        <div name="cms[]">
+            <h2>Add CMS</h2>
+            <form action="{{ action }}?id={{ cms.cmsId }}" method="POST">
+                <div>
+                    <label for="pageTitle">pageTitle: </label>
+                    <input type="text" name="cms[pageTitle]"
+                            id="pageTitle" value="{{ cms.pageTitle }}" required>
+                </div>
+                <div>
+                    <label for="urlKey">Url Key : </label>
+                    <input type="text" name="cms[urlKey]"
+                            id="urlKey" value="{{ cms.urlKey }}" required>
+                </div>
+                <div>
+                    <label for="status">status : </label>
+                    <input type="text" name="cms[status]"
+                            id="status" value="{{ cms.status }}" required>
+                </div>
+                <div>
+                    <label for="content">Content : </label>
+                    <input type="text" name="cms[content]"
+                            id="content" value="{{ cms.content }}" required>
+                </div>
+                <div>
+                    <input type="submit" value="{{btn}}" name="addCMS" id="addCMS">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

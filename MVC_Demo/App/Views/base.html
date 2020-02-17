@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/cybercom/php/MVC_Demo/public">Home</a> | 
+        <a href="/cybercom/php/MVC_Demo/public/category/category">Categories</a> | 
+        <a href="/cybercom/php/MVC_Demo/public/AboutUs/aboutUs">About Us</a> | 
+        <a href="/cybercom/php/MVC_Demo/public/ContactUs/contactUs">Contact Us</a>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+    
+</body>
+</html>

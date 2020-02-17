@@ -1,0 +1,35 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}CMS{% endblock %}
+
+{% block body %}
+
+    <a href="../CMS/addCMS">
+    <input type="button" value="Add CMS" name="addCMS"></a>
+
+    <table border="1">
+        
+        <tr>
+            <th>Id</th>
+            <th>Page Title</th>
+            <th>Status</th>
+            <th>Content</th>
+            <th>Action</th>
+        </tr>
+
+        {% for cms in cms_pages %}
+            <tr>
+                <td>{{ cms.cmsId }}</td>
+                <td>{{ cms.pageTitle }}</td>
+                <td>{{ cms.status }}</td>
+                <td>{{ cms.content }}</td>
+                <td>
+                    <a href="editCMS?id={{cms.cmsId}}">Edit</a>
+                    <a href="deleteCMS?id={{cms.cmsId}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+
+{% endblock %}

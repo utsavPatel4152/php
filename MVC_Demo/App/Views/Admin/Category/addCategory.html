@@ -1,0 +1,54 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Add Category{% endblock %}
+
+{% block body %}
+{% if category.0 == 'update' %}
+    {% set btn = 'Update Category' %}
+    {% set action = 'updateCategory' %}
+{% else %}
+    {% set btn = 'Add Category' %}
+    {% set action = 'addCategoryToDB' %}
+{% endif %}
+
+<div class="category" name="main">
+        <div name="category[]">
+            <h2>Add Category</h2>
+            <form action="{{ action }}?id={{ category.categoryId }}" method="POST">
+                <div>
+                    <label for="categoryName">Category Name : </label>
+                    <input type="text" name="category[categoryName]"
+                            id="categoryName" value="{{ category.categoryName }}" required>
+                </div>
+                <div>
+                    <label for="urlKey">Url Key : </label>
+                    <input type="text" name="category[urlKey]"
+                            id="urlKey" value="{{ category.urlKey }}" required>
+                </div>
+                <div>
+                    <label for="image">Image : </label>
+                    <input type="file" accept="image/*" name="category[image]"
+                            id="image" >
+                </div>
+                <div>
+                    <label for="status">status : </label>
+                    <input type="text" name="category[status]"
+                            id="status" value="{{ category.status }}" required>
+                </div>
+                <div>
+                    <label for="description">Description : </label>
+                    <input type="text" name="category[description]"
+                            id="description" value="{{ category.description }}" required>
+                </div>
+                <div>
+                    <label for="parentCategory">Parent Category : </label>
+                    <input type="number" name="category[parentCategory]"
+                            id="parentCategory" value="{{ category.parentCategory }}" required>
+                </div>
+                <div>
+                    <input type="submit" value="{{btn}}" name="addCategory" id="addCategory">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
