@@ -17,21 +17,23 @@ class Categories extends \Core\Controller
 
     public function addCategory()
     {
-        View::renderTemplate('Admin/Category/addCategory.html');
+        $parentCategory = dbOperations::getAll('categories', 'parentCategory IS NULL');
+        View::renderTemplate('Admin/Category/addCategory.html', [
+            'parentCategories'=>$parentCategory
+        ]);
     }
 
     public function addCategoryToDB()
     {
-        extract($_POST['category']);
-
-        $check = dbOperations::insertData($_POST['category'], 'categories');
-
-        if ($check) {
-            header("Location: http://localhost/cybercom/php/MVC_Demo/public/admin/categories/category");
-        }
-        else {
-            echo 'Record not inserted';
-            View::renderTemplate('Admin/Category/addCategory.html');    
+        if(isset($_POST['category']))
+        {
+            $preparedCategoryData = $_POST['category'];
+            $preparedCategoryData['image'] = $this->validateFile('categoryImage');
+            $lastId = dbOperations::insertData('categories', $preparedCategoryData);
+            if($lastId != 0) {
+                echo "Data inserted Succesfully!";
+            }
+            View::renderTemplate("Admin/Category/addCategory.html");
         }
     }
 
@@ -46,35 +48,41 @@ class Categories extends \Core\Controller
         }
         else {
             echo 'Record not deleted';
-            View::renderTemplate('Admin/Category/addCategory.html');    
+            View::renderTemplate('Admin/Category/addCategory.html');   
         }
     }
 
     public function editCategory()
     {
         $id = $_GET['id'];
-
+        $parentCategory = dbOperations::getAll('categories', 'parentCategory IS NULL');
         $categories = dbOperations::getData('`categories`','`categoryId`',$id);
         array_push($categories[0],'update');
     
-        View::renderTemplate('Admin/Category/addCategory.html',['category'=>$categories[0]]);
-
+        View::renderTemplate('Admin/Category/addCategory.html',['parentCategories'=>$parentCategory, 'category'=>$categories[0]]);
     }
 
     public function updateCategory()
     {
         $id = $_GET['id'];
-        extract($_POST['category']);
+        $preparedCategoryData = $_POST['category'];
+        $count = dbOperations::updateData('categories','categoryId', $id, $preparedCategoryData);
+        if($count == 1) {
+            echo "Data updated Successfully!";
+        }
+        View::renderTemplate('Admin/Category/addCategory.html');
+    }
 
-        $check = dbOperations::updateData('categories', 'categoryId', $id, $_POST['category']);
-    
-        if ($check) {
-            header("Location: http://localhost/cybercom/php/MVC_Demo/public/admin/categories/category");
+    public function validateFile($fieldName) {
+        $uploadDir = '../public/uploads/';
+        $uploadFile = $uploadDir . basename($_FILES[$fieldName]['name']);
+        $acceptTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+        if(in_array($_FILES[$fieldName]['type'], $acceptTypes)) {
+            move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadFile);
+            return $uploadDir . $_FILES[$fieldName]['name'];
         }
-        else{
-            echo 'Not updated';
-            View::renderTemplate('Admin/Category/addCategory.html');
-        }
+        else
+            echo "<script> alert('please enter valid image $uploadFile'); </script>"; 
     }
 
 }

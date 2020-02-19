@@ -5,19 +5,23 @@ use PDO;
 
 class dbOperations extends \Core\Model
 {    
-    public static function getAll($tableName)
+    public static function getAll($tableName, $condition = '')
     {
         try {
-     
             $db = static::getDB();
-
-            $stmt = $db->query("SELECT * FROM $tableName ORDER BY createdAt");
-
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $results;
-
-        } catch (PDOException $e) {
+            if(func_num_args() == 1) {
+                $stmt = $db->query("SELECT * FROM ($tableName)");
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+            }
+            else {
+                $stmt = $db->query("SELECT * FROM ($tableName) WHERE ($condition)");
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+            }
+            
+        }
+        catch (PDOExcetion $e) {
             echo $e->getMessage();
         }
     }
@@ -34,24 +38,28 @@ class dbOperations extends \Core\Model
 
     }
 
-    public static function insertData($array, $tableName)
+    public static function insertData($tableName, $array)
     {
-        $db = static::getDB();
-        
-        $query = "INSERT INTO $tableName (";
-        foreach ($array as $key => $value) {
-            $query .= "$key, ";
-        }
-        $query = substr($query, 0, -2);
-        $query .= ") VALUES (";
-        foreach ($array as $key => $value) {
-            $query .= "'$value', ";
-        }
-        $query = substr($query, 0, -2);
-        $query .= ")";
-        $stmt = $db->exec($query);
+        try {
+            $db = static::getDB();
+            $tableField = array_keys($array);
+            $field = implode(",", $tableField );
 
-        return $stmt;
+            foreach(array_values($array) as $value) {
+                if($value != 'NULL') {
+                    $tableValue[] = "'" . $value . "'";
+                }
+                else {
+                    $tableValue[] = $value;
+                }
+            }
+            $value = implode(",", $tableValue);
+            $db->exec("INSERT INTO $tableName ($field) VALUES ($value)");
+            return $db->lastInsertId();
+        }
+        catch (PDOExcetion $e) {
+            echo $e->getMessage();
+        }
     }
 
     public static function deleteData($tableName, $columnId, $id)     
@@ -62,23 +70,40 @@ class dbOperations extends \Core\Model
         $stmt = $db->exec($query);
 
         return $stmt;
-        
     }
 
     public static function updateData($tableName, $columnId, $id, $array)  
     {
-        $db = static::getDB();
-        
-        $query = "UPDATE $tableName SET ";
-        foreach ($array as $key => $value) {
-            $query .= "$key = '$value', ";
+        try {
+            $db = static::getDB();
+            $updatearg = [];
+            foreach($array as $key => $value) {
+                if ($key == 'parentCategory') {
+                    $updatearg[] = "$key = $value";
+                }
+                else {
+                    $updatearg[] = "$key = '$value'";
+                }
+            }
+            $sql = "UPDATE $tableName SET " . implode(', ',$updatearg) . " WHERE ($columnId)='$id'";
+            $result = $db->exec($sql);
+            return $result;
         }
-        $query = substr($query, 0, -2);
-
-        $query .= " WHERE $columnId=$id";
-        $stmt = $db->exec($query);
-
-        return $stmt;
+        catch (PDOExcetion   $e) {
+            echo $e->getMessage();
+        }
+    }
+    
+    public static function queryData($query) {
+        try{
+            $db = static::getDB();
+            $stmt = $db->query($query);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch (PDOExcetion $e) {
+            echo $e->getMessage();
+        }
     }
     
 }

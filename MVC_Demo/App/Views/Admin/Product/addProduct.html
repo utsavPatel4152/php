@@ -14,7 +14,7 @@
 <div class="product" name="main">
         <div name="product[]">
             <h2>Add Product</h2>
-            <form action="{{ action }}?id={{ product.productId }}" method="POST">
+            <form action="{{ action }}?id={{ product.productId }}" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="productName">Product Name : </label>
                     <input type="text" name="product[productName]"
@@ -32,8 +32,7 @@
                 </div>
                 <div>
                     <label for="image">Image : </label>
-                    <input type="file" accept="image/*" name="product[image]"
-                            id="image" >
+                    <input type="file" name="productImage">
                 </div>
                 <div>
                     <label for="status">status : </label>
@@ -59,6 +58,15 @@
                     <label for="stock">Stock : </label>
                     <input type="number" name="product[stock]"
                             id="stock" value="{{ product.stock }}" required>
+                </div>
+                <div>
+                    <label>Category </label>
+                     <select name="categoryName" value="" required>
+                        {% for category in categories  %}
+                            <option value="{{ category.categoryId }}">
+                                {{ category.categoryName }}</option>
+                        {% endfor %}
+                     </select>
                 </div>
                 <div>
                     <input type="submit" value="{{btn}}" name="addProduct" id="addProduct">

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% if product.urlKey != " " %}
+{% set title = product.urlKey %}
+{% endif %}
+{% block body %}
+<h1>{{title}}</h1>
+{% set baseUrl = '/cybercom/php/MVC_Demo/public' %}
+{% for product in selectProduct %}
+<div style="display: inline-flex; margin: 10px;">
+    <div style="text-align: center;">
+        <dt><a href="{{baseUrl}}/FrontCategory/{{product.productId}}/viewProduct">
+            <img src="../../{{product.image}}" height="150px" width="150px">
+            </a></dt>
+        <dt><a href="{{baseUrl}}/FrontCategory/{{product.productId}}/viewProduct">Name : {{product.productName}}</a></dt>
+        <dt><a href="{{baseUrl}}/FrontCategory/{{product.productId}}/viewProduct">Price : {{product.price}}</a></dt>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

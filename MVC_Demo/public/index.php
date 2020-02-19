@@ -19,11 +19,15 @@ use Core\Router;
 
     $router = new Router();
     
-    $router->add('', ['controller' => 'Home', 'action' => 'index']);
-    $router->add('home', ['controller' => 'Home', 'action' => 'index']);
+    $router->add('', ['url'=>'home','controller' => 'Home', 'action' => 'homeIndex']);
     $router->add('{controller}/{action}');
+    $router->add("{url:\w+}",['controller' => 'Home', 'action' => 'homeIndex']);
     $router->add('{controller}/{id:\d+}/{action}');
     $router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
+    $router->add('admin/{controller}/{id:\d+}/{action}', ['namespace' => 'Admin']);
+    $router->add("{controller}/{action}/{url:\w+}");
+    // $router->add('', ['controller' => 'Home', 'action' => 'homeIndex']);
+    // $router->add('home', ['controller' => 'Home', 'action' => 'homeIndex']);
     
     $url = $_SERVER['QUERY_STRING'];
     $router->dispatch($url);

@@ -12,6 +12,7 @@
         <tr>
             <th>Id</th>
             <th>ProductName</th>
+            <th>Image</th>
             <th>Description</th>
             <th>Price</th>
             <th>Action</th>
@@ -21,6 +22,7 @@
             <tr>
                 <td>{{ product.productId }}</td>
                 <td>{{ product.productName }}</td>
+                <td><img src="../../{{product.image}}" height="50px" width="50px"></td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>

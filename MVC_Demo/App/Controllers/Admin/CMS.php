@@ -22,16 +22,14 @@ class CMS extends \Core\Controller
 
     public function addCMSToDB()
     {
-        extract($_POST['cms']);
-
-        $check = dbOperations::insertData($_POST['cms'], 'cms_pages');
-
-        if ($check) {
-            header("Location: http://localhost/cybercom/php/MVC_Demo/public/admin/CMS/cms");
-        }
-        else {
-            echo 'Record not inserted';
-            View::renderTemplate('Admin/CMS/addCMS.html');
+        if(isset($_POST['cms']))
+        {
+            $preparedCMSData = $_POST['cms'];
+            $lastId = dbOperations::insertData('cms_pages', $preparedCMSData);
+            if($lastId != 0) {
+                echo "Data inserted Succesfully!";
+            }
+            View::renderTemplate("Admin/CMS/addCMS.html");
         }
     }
 
