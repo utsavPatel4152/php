@@ -4,17 +4,21 @@
 
 {% block body %}
 
+    <p></p>
     <a href="../products/addProduct">
     <input type="button" value="Add Product" name="addProduct"></a>
-
+    <p></p>
+    
     <table border="1">
         
         <tr>
             <th>Id</th>
             <th>ProductName</th>
+            <th>SKU</th>
             <th>Image</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Stock</th>
             <th>Action</th>
         </tr>
 
@@ -22,9 +26,11 @@
             <tr>
                 <td>{{ product.productId }}</td>
                 <td>{{ product.productName }}</td>
+                <td>{{ product.SKU }}</td>
                 <td><img src="../../{{product.image}}" height="50px" width="50px"></td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
                 <td>
                     <a href="editProduct?id={{product.productId}}">Edit</a>
                     <a href="deleteProduct?id={{product.productId}}">Delete</a>

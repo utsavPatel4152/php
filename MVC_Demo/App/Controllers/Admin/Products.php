@@ -60,7 +60,7 @@ class Products extends \Core\Controller
     public function editProduct()
     {
         $id = $_GET['id'];
-        $category = dbOperations::getAll('categories');
+        $category = dbOperations::getAll('categories', 'parentCategory IS NOT NULL');
         $products = dbOperations::getData('`products`','`productId`',$id);
         array_push($products[0],'update');
     
