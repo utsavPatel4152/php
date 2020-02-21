@@ -1,0 +1,48 @@
+{% block title %}{% endblock %}
+
+{% block body %}
+    
+    {% for service in serviceData %}
+    <h2>Update Request</h2>
+    <div class="main">
+        <form action="updateService?id=2" method="POST">
+            <div>
+                <label for="title">Title : </label>
+                <input type="text" id="title" name="service[title]" value="{{service.title}}">
+            </div>
+            <div>
+                <label for="vehicleNumber">Vehicle Number : </label>
+                <input type="text" id="vehicleNumber" name="service[vehicleNumber]" value="{{ service.vehicleNumber }}">
+            </div>
+            <div>
+                <label for="licenceNumber">Licence Number : </label>
+                <input type="number" id="licenceNumber" name="service[licenceNumber]" value="{{ service.licenceNumber }}">
+            </div>
+            <div>
+                <label for="date">Date : </label>
+                <input type="date" id="date" name="service[date]" value="{{ service.date }}">
+            </div>
+            <div>
+                <label for="timeSlot">Timeslot : </label>
+                <select name="service[timeSlot]">
+                    <option value="{{ service.timeSlot }}">{{ service.timeSlot }}</option>
+                </select>
+            </div>
+            <div>
+                <label for="issue">Vehicle Issue : </label>
+                <input type="text" id="issue" name="service[issue]" value="{{ service.issue }}">
+            </div>
+            <div>
+                <label for="serviceCenter">Service Center : </label>
+                <select name="service[serviceCenter]">
+                    <option value="{{ service.serviceCenter }}">{{ service.serviceCenter }}</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Update Service Request" name="submitUpdate">
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+    
+{% endblock %}

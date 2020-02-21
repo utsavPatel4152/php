@@ -1,0 +1,38 @@
+{% block title %}{% endblock %}
+
+{% block body %}
+    
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Vehicle Number</th>
+            <th>Licence Number</th>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Issue</th>
+            <th>Service Center</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for user in userData %}
+            <tr>
+                <td>{{ user.service_id }}</td>
+                <td>{{ user.title }}</td>
+                <td>{{ user.vehicleNumber }}</td>
+                <td>{{ user.licenceNumber }}</td>
+                <td>{{ user.date }}</td>
+                <td>{{ user.timeSlot }}</td>
+                <td>{{ user.issue }}</td>
+                <td>{{ user.serviceCenter }}</td>
+                <td>{{ user.status }}</td>
+                <td>
+                    <a href="editRequest?id={{user.service_id}}">Edit</a>
+                    <a href="deleteRequest?id={{user.service_id}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}
